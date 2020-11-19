@@ -8,7 +8,8 @@ function Photo(props) {
   return (
     <div className={`col-4 ${styles.resultsPhoto}`}
       id={props.photoData.src}>
-      <div style={{background: `url(${props.photoData.src}) no-repeat`}} />
+      <div style={{background: `url(${process.env.PUBLIC_URL + "/" + props.photoData.src}) no-repeat`}}
+      alt={`Photo ${props.photoData.src} not found`} />
     </div>
   )
 }

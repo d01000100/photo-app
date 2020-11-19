@@ -1,3 +1,5 @@
+import FuzzySet from 'fuzzyset.js'
+
 const data = [
   { 
     src: "img/coons/photo_2020-10-29_09-29-07.jpg",
@@ -66,10 +68,11 @@ const data = [
 ]
 
 function doesTagMatch(photoInfo, query) {
-  return photoInfo.tags.some(tag => 
-    // tag.localeCompare(query, [], {sensitivity: 'base', usage: "search"}) == 0
-    tag.toUpperCase() == query.toUpperCase()
-    )
+  let tagsFuzzy = FuzzySet(photoInfo.tags)
+  let results = tagsFuzzy.get(query)
+  if (!results) return false;
+  let [[number]] = results;
+  return number > 0.7
 }
 
 export function searchPhotos(query, pageNumber = 1, pageSize = 6) {
