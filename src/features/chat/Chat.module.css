@@ -1,0 +1,16 @@
+.chatInitial {
+  display: inline-block;
+
+  border-radius: 50%;
+  width: 8vw;
+  height: 8vw;
+
+  text-align: center;
+  vertical-align: middle;
+
+  margin-right: 10px;
+}
+
+.contact {
+  font-size: 18px;
+}
