@@ -1,13 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { useSelector } from 'react-redux';
+import { NavBar } from './features/navbar/Navbar';
+import { getPage } from './features/navbar/navSlice';
 import { Search } from './features/search/Search';
+import { Chat } from './features/chat/Chat';
 import './App.css';
 
 function App() {
+  const page = useSelector(getPage)
+
   return (
     <div className="App container-sm">
-        <Search />
+      {
+        page == "search" ? <Search /> :
+        page == "chat" ? <Chat /> : ""
+      }
+      <NavBar />
     </div>
   );
 }
