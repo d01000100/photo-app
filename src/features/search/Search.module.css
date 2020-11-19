@@ -1,0 +1,24 @@
+.resultsPhoto {
+  position: relative;
+  width: 100%;
+  margin: 1vw 0px;
+}
+
+.resultsPhoto:before {
+  content: "";
+	float: left;
+	padding-top: 100%;
+}
+
+.resultsPhoto div {
+  height: 100%;
+  width: 100%;
+
+  background-size:cover !important;
+  background-position:center !important;
+}
+
+.resultsPhoto img {
+  max-width: 100%;
+  height: auto;
+}
