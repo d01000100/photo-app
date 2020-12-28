@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { newResults, getResults, getAreThereMore, startSearch, getCurrentPage, getQuery, startAppend, appendResults } from './searchSlice'
 import { searchPhotos } from '../../app/search_mockup'
