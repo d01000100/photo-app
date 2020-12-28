@@ -1,0 +1,17 @@
+.icon {
+  height: 1.5em
+}
+
+.scroll {
+  overflow-y: auto !important;
+  scrollbar-width: thin;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 5px;
+}
