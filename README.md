@@ -4,10 +4,17 @@ Simple image searching and posting app built with React and Redux.
 
 ## Relevant components
 
+**src/features/chat** Contact list that opens up individual conversations with each one. 
+
 **src/features/search** Component that allows the user to search on the picture database using tags on the images. (so far the database is a mockup scriptt)
 
-**src/features/chat** Contact list that opens up individual conversations with each one. WIP.<br/ >
-TBD: Better UI for conversation and adding messages.
+## TODO components
+
+- See a single picture
+- See a singular profile
+- Feed
+- Login
+- Make navbar not been drawn over other components
 
 You can use the running app in: https://d01000100.github.io/photo-app/
 

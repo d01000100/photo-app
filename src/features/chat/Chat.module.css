@@ -14,3 +14,55 @@
 .contact {
   font-size: 18px;
 }
+
+.chat {
+  height: 70vh;
+}
+
+.chatMessage {
+  display: inline-block;
+  clear: both;
+  max-width: 75%;
+  margin: 10px 10px;
+  border: 0px solid;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: left;
+  position: relative; 
+}
+
+.chatMessage.messageSelf {
+  float: right;
+  background-color: #88f7f2
+}
+
+.chatMessage.messageOther {
+  float: left;
+  background-color: #11d9d0; 
+}
+
+.chatMessage.messageOther:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid #11d9d0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid #11d9d0;
+  left: -10px;
+  bottom: 0px;
+}
+
+.chatMessage.messageSelf:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid #88f7f2;
+  border-right: 10px solid transparent;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid #88f7f2;
+  right: -10px;
+  bottom: 0px;
+}

@@ -1,65 +1,73 @@
-import React, { useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveChat, addMessage, getContacts, getSelectedContact } from './chatSlice.js'
+import {Link, useParams} from 'react-router-dom'
+import { setActiveChat, addMessage, getContact as getSelectedContact } from './chatSlice.js'
 import styles from './Chat.module.css';
 
-function Contact(props) {
-  let name = props.info.name;
-  let imgSrc = props.info.image
-  let initial = name[0];
+let {chatMessage, messageSelf, messageOther, chat} = styles
+
+function Input() {
+
+  let [inputText, setInputText] = useState('')
+
+  let {name} = useSelector(getSelectedContact);
 
   let dispatch = useDispatch();
 
-  return (
-    <li className={`list-group-item list-group-item-action ${styles.contact}`}
-      onClick={() => { dispatch(setActiveChat(props.info))}}>
-      <img className={styles.chatInitial} src={process.env.PUBLIC_URL + "/" + imgSrc} />
-      <span>{name}</span>
-    </li>
-  )
-}
-
-function ContactList() {
-  const contacts = useSelector(getContacts);
+  function sendMessage() {
+    let message = inputText.trim()
+    if (message == "") return
+    dispatch(addMessage({recipient: name, content: message}))
+    setInputText('')
+  }
 
   return (
-    <ul className="list-group">
-      {contacts.map(contactData => <Contact info={contactData} />)}
-    </ul>
-  )
-}
-
-function Messages () {
-  let selectedContact = useSelector(getSelectedContact);
-  const dispatch = useDispatch();
-
-  return (
-    <div>
-      <h3>{selectedContact.name}</h3>
-      <h4><i>WIP</i></h4>
-      <ul>
-        {selectedContact.messages.map(({sender, content}) => 
-          <li>
-            <b>{sender == 'self' ? "Me: " : `${selectedContact.name}: `}</b>
-            {content}
-          </li>
-        )}
-      </ul>
-      <a href="#" onClick={() => { dispatch(setActiveChat(null))}}><i>Back</i></a>
+    <div className="input-group">
+      <input className="form-control" type="text"
+        value={inputText} onChange={(event) => {setInputText(event.target.value)}}
+        onKeyUp={(event) => {
+          if (event.key == "Enter") {
+            sendMessage()
+          }
+        }}
+      ></input>
+      <div className="input-group-append input-group-sm" onClick={sendMessage}>
+        <span className="input-group-text">
+          <img className="icon" src={`${process.env.PUBLIC_URL}/svg/sent.svg`}
+            alt="Send icon"></img>
+        </span>
+      </div>
     </div>
   )
 }
 
-export function Chat() {
-  const selectedContact = useSelector(getSelectedContact)
+export default function Messages () {
+
+  const dispatch = useDispatch();
+  let {username} = useParams()
+  dispatch(setActiveChat({username: username}))
+  let {name, image, messages} = useSelector(getSelectedContact);
+
+  let scrollWindow = React.createRef();
+
+  useEffect(() => {
+    scrollWindow.current.scrollTop = scrollWindow.current.scrollHeight
+  }, [messages])
 
   return (
     <div>
-      <h1>Chat</h1>
-      {selectedContact == null ?
-        <ContactList /> :
-        <Messages />
-      }
+      <h3>{name}</h3>
+      <Link to="/chat">
+        <i>{"< All messages"}</i>
+      </Link>
+      <div className={`${chat} scroll`} ref={scrollWindow}>
+        {messages.map(({sender, content}, index) => 
+          <div key={index} className={`${chatMessage} ${sender == 'self' ? messageSelf : messageOther}`}>
+            {content}
+          </div>
+        )}
+      </div>
+      <Input />
     </div>
   )
 }
